@@ -112,4 +112,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(EmployeeIdentityDetail::class);
     }
+
+    public function separationDetails()
+    {
+        return $this->hasOne(EmployeeSeparationDetail::class);
+    }
 }

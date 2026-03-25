@@ -687,8 +687,79 @@
                         </div>
                     </div>
 
+                    <!-- Separation Details Tab Content -->
+                    <div x-show="activeTab === 'separation'" class="p-8 space-y-8 animate-fadeIn">
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-2 pb-2 border-b border-gray-50">
+                                <div class="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
+                                <h4 class="text-[11px] font-black text-gray-800 uppercase tracking-widest">Separation Information</h4>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">Employee Separation Status <span class="text-red-500">*</span></label>
+                                    <select name="separation_status" 
+                                        class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
+                                        <option value="">select</option>
+                                        <option value="Active">Active</option>
+                                        <option value="Resigned">Resigned</option>
+                                        <option value="Terminated">Terminated</option>
+                                        <option value="Retired">Retired</option>
+                                        <option value="Contract Ended">Contract Ended</option>
+                                    </select>
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">Date Of Leaving <span class="text-red-500">*</span></label>
+                                    <input type="date" name="date_of_leaving"
+                                        class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">Leaving Reason</label>
+                                    <input type="text" name="leaving_reason" placeholder="Leaving Reason"
+                                        class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">Date Of Settlement</label>
+                                    <input type="date" name="date_of_settlement"
+                                        class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">Date Of Resignation <span class="text-red-500">*</span></label>
+                                    <input type="date" name="date_of_resignation"
+                                        class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">Contract Start Date</label>
+                                    <input type="date" name="contract_start_date"
+                                        class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">Contract End Date</label>
+                                    <input type="date" name="contract_end_date"
+                                        class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-10 flex justify-end gap-3">
+                            <button type="button" @click="activeTab = 'identity'" 
+                                class="px-8 py-3 bg-gray-100 text-gray-500 rounded font-bold text-[12px] uppercase tracking-widest hover:bg-gray-200 transition-all">
+                                Previous
+                            </button>
+                            <button type="submit" class="px-8 py-3 bg-[#004499] text-white rounded font-bold text-[12px] uppercase tracking-widest hover:bg-blue-900 transition-all shadow-md">
+                                Save Employee Enrollment
+                            </button>
+                        </div>
+                    </div>
+
                     <!-- Other Tabs... -->
-                    <div x-show="!['official', 'bank', 'identity'].includes(activeTab)" class="p-8 text-center text-gray-400 font-bold uppercase tracking-widest animate-fadeIn">
+                    <div x-show="!['official', 'bank', 'identity', 'separation'].includes(activeTab)" class="p-8 text-center text-gray-400 font-bold uppercase tracking-widest animate-fadeIn">
                         Work in Progress for <span x-text="activeTab"></span>
                     </div>
 

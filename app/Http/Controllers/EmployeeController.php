@@ -20,6 +20,7 @@ use App\Models\DynamicRole;
 use App\Models\Bank;
 use App\Models\EmployeeBankDetail;
 use App\Models\EmployeeIdentityDetail;
+use App\Models\EmployeeSeparationDetail;
 
 class EmployeeController extends Controller
 {
@@ -152,7 +153,9 @@ class EmployeeController extends Controller
             'aadhar_no', 'pan_no'
         ];
 
-        $data = $request->except(array_merge(['password', 'role', 'photo', 'document'], $bankFields, $identityFields));
+        $data = $request->except(array_merge(['password', 'role', 'photo', 'document'], $bankFields, $identityFields, [
+            'separation_status', 'date_of_leaving', 'leaving_reason', 'date_of_settlement', 'date_of_resignation', 'contract_start_date', 'contract_end_date'
+        ]));
         $data['name'] = $request->name . ($request->last_name ? ' ' . $request->last_name : '');
         $data['password'] = Hash::make($request->password ?? 'password123');
 
@@ -195,18 +198,29 @@ class EmployeeController extends Controller
 
         $user->identityDetails()->create($identityData);
 
+        // Save Separation Details
+        $user->separationDetails()->create([
+            'status' => $request->separation_status,
+            'date_of_leaving' => $request->date_of_leaving,
+            'leaving_reason' => $request->leaving_reason,
+            'date_of_settlement' => $request->date_of_settlement,
+            'date_of_resignation' => $request->date_of_resignation,
+            'contract_start_date' => $request->contract_start_date,
+            'contract_end_date' => $request->contract_end_date,
+        ]);
+
         return redirect()->route('employees.index')->with('success', 'Employee profile enrollment completed successfully.');
     }
 
     public function show($id)
     {
-        $employee = User::with(['bankDetails', 'identityDetails'])->findOrFail($id);
+        $employee = User::with(['bankDetails', 'identityDetails', 'separationDetails'])->findOrFail($id);
         return view('employees.show', compact('employee'));
     }
 
     public function edit($id)
     {
-        $employee = User::with(['bankDetails', 'identityDetails'])->findOrFail($id);
+        $employee = User::with(['bankDetails', 'identityDetails', 'separationDetails'])->findOrFail($id);
         
         $companies = Company::orderBy('company_name')->get();
         $departments = Department::orderBy('name')->get();
@@ -255,7 +269,9 @@ class EmployeeController extends Controller
             'aadhar_no', 'pan_no'
         ];
 
-        $data = $request->except(array_merge(['password', 'role', 'photo', 'document'], $bankFields, $identityFields));
+        $data = $request->except(array_merge(['password', 'role', 'photo', 'document'], $bankFields, $identityFields, [
+            'separation_status', 'date_of_leaving', 'leaving_reason', 'date_of_settlement', 'date_of_resignation', 'contract_start_date', 'contract_end_date'
+        ]));
 
         if ($request->password) {
             $data['password'] = Hash::make($request->password);
@@ -315,6 +331,20 @@ class EmployeeController extends Controller
         $user->identityDetails()->updateOrCreate(
             ['user_id' => $user->id],
             $identityData
+        );
+
+        // Update Separation Details
+        $user->separationDetails()->updateOrCreate(
+            ['user_id' => $user->id],
+            [
+                'status' => $request->separation_status,
+                'date_of_leaving' => $request->date_of_leaving,
+                'leaving_reason' => $request->leaving_reason,
+                'date_of_settlement' => $request->date_of_settlement,
+                'date_of_resignation' => $request->date_of_resignation,
+                'contract_start_date' => $request->contract_start_date,
+                'contract_end_date' => $request->contract_end_date,
+            ]
         );
 
         return redirect()->route('employees.index')->with('success', 'Employee updated successfully.');
