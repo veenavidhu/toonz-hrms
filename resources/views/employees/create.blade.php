@@ -698,8 +698,8 @@
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 <div class="space-y-1">
                                     <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">Employee Separation Status <span class="text-red-500">*</span></label>
-                                    <select name="separation_status" 
-                                        class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
+                                    <select name="separation_status" id="statusCode"
+                                        class="form-control w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
                                         <option value="">select</option>
                                         <option value="01">Active</option>
                                         <option value="07">Death</option>
