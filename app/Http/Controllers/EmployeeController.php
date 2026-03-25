@@ -19,6 +19,7 @@ use App\Models\Location;
 use App\Models\DynamicRole;
 use App\Models\Bank;
 use App\Models\EmployeeBankDetail;
+use App\Models\EmployeeIdentityDetail;
 
 class EmployeeController extends Controller
 {
@@ -144,7 +145,14 @@ class EmployeeController extends Controller
             'reimbursement_bank_id', 'reimbursement_bank_ifsc', 'reimbursement_account_number', 'payment_mode'
         ];
 
-        $data = $request->except(array_merge(['password', 'role', 'photo', 'document'], $bankFields));
+        $identityFields = [
+            'passport_no', 'passport_place_of_issue', 'passport_date_of_issue', 'passport_expiry_date', 'passport_address',
+            'visa_no', 'visa_expiry', 'work_permit_no', 'work_permit_expiry',
+            'driving_licence_no', 'driving_licence_place_of_issue', 'driving_licence_date_of_issue', 'driving_licence_validity', 'driving_licence_address',
+            'aadhar_no', 'pan_no'
+        ];
+
+        $data = $request->except(array_merge(['password', 'role', 'photo', 'document'], $bankFields, $identityFields));
         $data['name'] = $request->name . ($request->last_name ? ' ' . $request->last_name : '');
         $data['password'] = Hash::make($request->password ?? 'password123');
 
@@ -171,18 +179,34 @@ class EmployeeController extends Controller
             'payment_mode' => $request->payment_mode,
         ]);
 
+        // Save Identity Details
+        $identityData = $request->only($identityFields);
+        
+        $attachmentFields = [
+            'passport_attachment', 'visa_attachment', 'work_permit_attachment', 
+            'driving_licence_attachment', 'aadhar_attachment', 'pan_attachment'
+        ];
+
+        foreach ($attachmentFields as $field) {
+            if ($request->hasFile($field)) {
+                $identityData[$field] = $request->file($field)->store('employees/identity', 'public');
+            }
+        }
+
+        $user->identityDetails()->create($identityData);
+
         return redirect()->route('employees.index')->with('success', 'Employee profile enrollment completed successfully.');
     }
 
     public function show($id)
     {
-        $employee = User::with('bankDetails')->findOrFail($id);
+        $employee = User::with(['bankDetails', 'identityDetails'])->findOrFail($id);
         return view('employees.show', compact('employee'));
     }
 
     public function edit($id)
     {
-        $employee = User::with('bankDetails')->findOrFail($id);
+        $employee = User::with(['bankDetails', 'identityDetails'])->findOrFail($id);
         
         $companies = Company::orderBy('company_name')->get();
         $departments = Department::orderBy('name')->get();
@@ -224,7 +248,14 @@ class EmployeeController extends Controller
             'reimbursement_bank_id', 'reimbursement_bank_ifsc', 'reimbursement_account_number', 'payment_mode'
         ];
 
-        $data = $request->except(array_merge(['password', 'role', 'photo', 'document'], $bankFields));
+        $identityFields = [
+            'passport_no', 'passport_place_of_issue', 'passport_date_of_issue', 'passport_expiry_date', 'passport_address',
+            'visa_no', 'visa_expiry', 'work_permit_no', 'work_permit_expiry',
+            'driving_licence_no', 'driving_licence_place_of_issue', 'driving_licence_date_of_issue', 'driving_licence_validity', 'driving_licence_address',
+            'aadhar_no', 'pan_no'
+        ];
+
+        $data = $request->except(array_merge(['password', 'role', 'photo', 'document'], $bankFields, $identityFields));
 
         if ($request->password) {
             $data['password'] = Hash::make($request->password);
@@ -259,6 +290,31 @@ class EmployeeController extends Controller
                 'reimbursement_account_number' => $request->reimbursement_account_number,
                 'payment_mode' => $request->payment_mode,
             ]
+        );
+
+        // Update Identity Details
+        $identityData = $request->only($identityFields);
+        
+        $attachmentFields = [
+            'passport_attachment', 'visa_attachment', 'work_permit_attachment', 
+            'driving_licence_attachment', 'aadhar_attachment', 'pan_attachment'
+        ];
+
+        $currentIdentity = $user->identityDetails;
+
+        foreach ($attachmentFields as $field) {
+            if ($request->hasFile($field)) {
+                // Delete old file if exists
+                if ($currentIdentity && $currentIdentity->$field) {
+                    Storage::disk('public')->delete($currentIdentity->$field);
+                }
+                $identityData[$field] = $request->file($field)->store('employees/identity', 'public');
+            }
+        }
+
+        $user->identityDetails()->updateOrCreate(
+            ['user_id' => $user->id],
+            $identityData
         );
 
         return redirect()->route('employees.index')->with('success', 'Employee updated successfully.');

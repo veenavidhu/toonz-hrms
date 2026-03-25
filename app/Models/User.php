@@ -107,4 +107,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(EmployeeBankDetail::class);
     }
+
+    public function identityDetails()
+    {
+        return $this->hasOne(EmployeeIdentityDetail::class);
+    }
 }

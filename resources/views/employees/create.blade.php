@@ -501,8 +501,194 @@
                         </div>
                     </div>
 
+                    <!-- Identity Details Tab Content -->
+                    <div x-show="activeTab === 'identity'" class="p-8 space-y-8 animate-fadeIn">
+                        
+                        {{-- Passport Details Section --}}
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-2 pb-2 border-b border-gray-50">
+                                <div class="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
+                                <h4 class="text-[11px] font-black text-gray-800 uppercase tracking-widest">Passport Details</h4>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">Passport No</label>
+                                    <input type="text" name="passport_no" placeholder="Passport No."
+                                        class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">Place Of Issue</label>
+                                    <input type="text" name="passport_place_of_issue" placeholder="Place Of Issue"
+                                        class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">Date Of Issue</label>
+                                    <input type="date" name="passport_date_of_issue"
+                                        class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">Passport Validity</label>
+                                    <input type="date" name="passport_expiry_date"
+                                        class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
+                                </div>
+                                <div class="space-y-1 md:col-span-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">Address On Passport</label>
+                                    <input type="text" name="passport_address" placeholder="Address On Passport"
+                                        class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">Passport Attachment</label>
+                                    <input type="file" name="passport_attachment" 
+                                        class="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-xs file:font-black file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
+                                    <p class="text-[9px] text-emerald-500 font-bold tracking-tight">Allowed File Type: Jpg,Png,Gif,Jpeg</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- VISA & Work Permit Section --}}
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-2 pb-2 border-b border-gray-50">
+                                <div class="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
+                                <h4 class="text-[11px] font-black text-gray-800 uppercase tracking-widest">VISA & WORK PERMIT DETAILS</h4>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">Visa Number</label>
+                                    <input type="text" name="visa_no" placeholder="Visa Number"
+                                        class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">Visa Expiry</label>
+                                    <input type="date" name="visa_expiry"
+                                        class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">Visa Attachment</label>
+                                    <input type="file" name="visa_attachment"
+                                        class="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-xs file:font-black file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
+                                    <p class="text-[9px] text-emerald-500 font-bold tracking-tight">Allowed File Type: Jpg,Png,Gif,Jpeg</p>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">Work Permit Number</label>
+                                    <input type="text" name="work_permit_no" placeholder="Work Permit Number"
+                                        class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">WP Expiry</label>
+                                    <input type="date" name="work_permit_expiry"
+                                        class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">WP Attachment</label>
+                                    <input type="file" name="work_permit_attachment"
+                                        class="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-xs file:font-black file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
+                                    <p class="text-[9px] text-emerald-500 font-bold tracking-tight">Allowed File Type: Jpg,Png,Gif,Jpeg</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Driving Details Section --}}
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-2 pb-2 border-b border-gray-50">
+                                <div class="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
+                                <h4 class="text-[11px] font-black text-gray-800 uppercase tracking-widest">DRIVING DETAILS</h4>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">Driving Licence No</label>
+                                    <input type="text" name="driving_licence_no" placeholder="Driving Licence No"
+                                        class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">Place of Issue</label>
+                                    <input type="text" name="driving_licence_place_of_issue" placeholder="Place Of Issue"
+                                        class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">Date Of Issue</label>
+                                    <input type="date" name="driving_licence_date_of_issue"
+                                        class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">DL Validity</label>
+                                    <input type="date" name="driving_licence_validity"
+                                        class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">Driving Licence Address</label>
+                                    <input type="text" name="driving_licence_address" placeholder="Driving Licence Address"
+                                        class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">DL Attachment</label>
+                                    <input type="file" name="driving_licence_attachment"
+                                        class="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-xs file:font-black file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
+                                    <p class="text-[9px] text-emerald-500 font-bold tracking-tight">Allowed File Type: Jpg,Png,Gif,Jpeg</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Others Section --}}
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-2 pb-2 border-b border-gray-50">
+                                <div class="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
+                                <h4 class="text-[11px] font-black text-gray-800 uppercase tracking-widest">OTHERS DETAILS</h4>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">Aadhaar Card No.</label>
+                                    <input type="text" name="aadhar_no" placeholder="Aadhaar Card No."
+                                        class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">Aadhar Attachment</label>
+                                    <input type="file" name="aadhar_attachment"
+                                        class="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-xs file:font-black file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
+                                    <p class="text-[9px] text-emerald-500 font-bold tracking-tight">Allowed File Type: Jpg,Png,Gif,Jpeg</p>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">PAN No</label>
+                                    <input type="text" name="pan_no" placeholder="PAN No"
+                                        class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">Pan Attachment</label>
+                                    <input type="file" name="pan_attachment"
+                                        class="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-xs file:font-black file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
+                                    <p class="text-[9px] text-emerald-500 font-bold tracking-tight">Allowed File Type: Jpg,Png,Gif,Jpeg</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-10 flex justify-end gap-3">
+                            <button type="button" @click="activeTab = 'bank'" 
+                                class="px-8 py-3 bg-gray-100 text-gray-500 rounded font-bold text-[12px] uppercase tracking-widest hover:bg-gray-200 transition-all">
+                                Previous
+                            </button>
+                            <button type="submit" class="px-8 py-3 bg-[#004499] text-white rounded font-bold text-[12px] uppercase tracking-widest hover:bg-blue-900 transition-all shadow-md">
+                                Save Employee Enrollment
+                            </button>
+                        </div>
+                    </div>
+
                     <!-- Other Tabs... -->
-                    <div x-show="!['official', 'bank'].includes(activeTab)" class="p-8 text-center text-gray-400 font-bold uppercase tracking-widest animate-fadeIn">
+                    <div x-show="!['official', 'bank', 'identity'].includes(activeTab)" class="p-8 text-center text-gray-400 font-bold uppercase tracking-widest animate-fadeIn">
                         Work in Progress for <span x-text="activeTab"></span>
                     </div>
 
