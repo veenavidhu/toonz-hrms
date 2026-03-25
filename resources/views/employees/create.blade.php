@@ -701,11 +701,17 @@
                                     <select name="separation_status" 
                                         class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
                                         <option value="">select</option>
-                                        <option value="Active">Active</option>
-                                        <option value="Resigned">Resigned</option>
-                                        <option value="Terminated">Terminated</option>
-                                        <option value="Retired">Retired</option>
-                                        <option value="Contract Ended">Contract Ended</option>
+                                        <option value="01">Active</option>
+                                        <option value="07">Death</option>
+                                        <option value="11">Future Hire</option>
+                                        <option value="04">Inactive</option>
+                                        <option value="10">LOA out</option>
+                                        <option value="02">Payhold</option>
+                                        <option value="05">Retired</option>
+                                        <option value="08">Stop Processing</option>
+                                        <option value="06">Suspended</option>
+                                        <option value="03">Terminated</option>
+                                        <option value="09">Transfer out</option>
                                     </select>
                                 </div>
                                 <div class="space-y-1">

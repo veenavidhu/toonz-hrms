@@ -632,11 +632,17 @@
                                     <select name="separation_status" 
                                         class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
                                         <option value="">select</option>
-                                        <option value="Active" {{ (old('separation_status', $employee->separationDetails->status ?? '') == 'Active') ? 'selected' : '' }}>Active</option>
-                                        <option value="Resigned" {{ (old('separation_status', $employee->separationDetails->status ?? '') == 'Resigned') ? 'selected' : '' }}>Resigned</option>
-                                        <option value="Terminated" {{ (old('separation_status', $employee->separationDetails->status ?? '') == 'Terminated') ? 'selected' : '' }}>Terminated</option>
-                                        <option value="Retired" {{ (old('separation_status', $employee->separationDetails->status ?? '') == 'Retired') ? 'selected' : '' }}>Retired</option>
-                                        <option value="Contract Ended" {{ (old('separation_status', $employee->separationDetails->status ?? '') == 'Contract Ended') ? 'selected' : '' }}>Contract Ended</option>
+                                        <option value="01" {{ (old('separation_status', $employee->separationDetails->status ?? '') == '01') ? 'selected' : '' }}>Active</option>
+                                        <option value="07" {{ (old('separation_status', $employee->separationDetails->status ?? '') == '07') ? 'selected' : '' }}>Death</option>
+                                        <option value="11" {{ (old('separation_status', $employee->separationDetails->status ?? '') == '11') ? 'selected' : '' }}>Future Hire</option>
+                                        <option value="04" {{ (old('separation_status', $employee->separationDetails->status ?? '') == '04') ? 'selected' : '' }}>Inactive</option>
+                                        <option value="10" {{ (old('separation_status', $employee->separationDetails->status ?? '') == '10') ? 'selected' : '' }}>LOA out</option>
+                                        <option value="02" {{ (old('separation_status', $employee->separationDetails->status ?? '') == '02') ? 'selected' : '' }}>Payhold</option>
+                                        <option value="05" {{ (old('separation_status', $employee->separationDetails->status ?? '') == '05') ? 'selected' : '' }}>Retired</option>
+                                        <option value="08" {{ (old('separation_status', $employee->separationDetails->status ?? '') == '08') ? 'selected' : '' }}>Stop Processing</option>
+                                        <option value="06" {{ (old('separation_status', $employee->separationDetails->status ?? '') == '06') ? 'selected' : '' }}>Suspended</option>
+                                        <option value="03" {{ (old('separation_status', $employee->separationDetails->status ?? '') == '03') ? 'selected' : '' }}>Terminated</option>
+                                        <option value="09" {{ (old('separation_status', $employee->separationDetails->status ?? '') == '09') ? 'selected' : '' }}>Transfer out</option>
                                     </select>
                                 </div>
                                 <div class="space-y-1">
