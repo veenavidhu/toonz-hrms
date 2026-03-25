@@ -117,4 +117,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(EmployeeSeparationDetail::class);
     }
+
+    public function statutoryDetails()
+    {
+        return $this->hasOne(EmployeeStatutoryDetail::class);
+    }
 }

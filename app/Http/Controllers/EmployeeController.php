@@ -21,6 +21,7 @@ use App\Models\Bank;
 use App\Models\EmployeeBankDetail;
 use App\Models\EmployeeIdentityDetail;
 use App\Models\EmployeeSeparationDetail;
+use App\Models\EmployeeStatutoryDetail;
 
 class EmployeeController extends Controller
 {
@@ -141,6 +142,8 @@ class EmployeeController extends Controller
             'document' => 'nullable|mimes:pdf,doc,docx,zip|max:5120',
         ]);
 
+        $statutoryFields = ['uan_no', 'pf_no', 'esi_no', 'lwf_no'];
+
         $bankFields = [
             'bank_name_as_per_bank', 'salary_bank_id', 'salary_bank_ifsc', 'salary_account_number',
             'reimbursement_bank_id', 'reimbursement_bank_ifsc', 'reimbursement_account_number', 'payment_mode'
@@ -154,7 +157,8 @@ class EmployeeController extends Controller
         ];
 
         $data = $request->except(array_merge(['password', 'role', 'photo', 'document'], $bankFields, $identityFields, [
-            'separation_status', 'date_of_leaving', 'leaving_reason', 'date_of_settlement', 'date_of_resignation', 'contract_start_date', 'contract_end_date'
+            'separation_status', 'date_of_leaving', 'leaving_reason', 'date_of_settlement', 'date_of_resignation', 'contract_start_date', 'contract_end_date',
+            'uan_no', 'pf_no', 'esi_no', 'lwf_no'
         ]));
         $data['name'] = $request->name . ($request->last_name ? ' ' . $request->last_name : '');
         $data['password'] = Hash::make($request->password ?? 'password123');
@@ -209,18 +213,21 @@ class EmployeeController extends Controller
             'contract_end_date' => $request->contract_end_date,
         ]);
 
+        // Save Statutory Details
+        $user->statutoryDetails()->create($request->only($statutoryFields));
+
         return redirect()->route('employees.index')->with('success', 'Employee profile enrollment completed successfully.');
     }
 
     public function show($id)
     {
-        $employee = User::with(['bankDetails', 'identityDetails', 'separationDetails'])->findOrFail($id);
+        $employee = User::with(['bankDetails', 'identityDetails', 'separationDetails', 'statutoryDetails'])->findOrFail($id);
         return view('employees.show', compact('employee'));
     }
 
     public function edit($id)
     {
-        $employee = User::with(['bankDetails', 'identityDetails', 'separationDetails'])->findOrFail($id);
+        $employee = User::with(['bankDetails', 'identityDetails', 'separationDetails', 'statutoryDetails'])->findOrFail($id);
         
         $companies = Company::orderBy('company_name')->get();
         $departments = Department::orderBy('name')->get();
@@ -269,9 +276,11 @@ class EmployeeController extends Controller
             'aadhar_no', 'pan_no'
         ];
 
+        $statutoryFields = ['uan_no', 'pf_no', 'esi_no', 'lwf_no'];
+
         $data = $request->except(array_merge(['password', 'role', 'photo', 'document'], $bankFields, $identityFields, [
             'separation_status', 'date_of_leaving', 'leaving_reason', 'date_of_settlement', 'date_of_resignation', 'contract_start_date', 'contract_end_date'
-        ]));
+        ], $statutoryFields));
 
         if ($request->password) {
             $data['password'] = Hash::make($request->password);
@@ -345,6 +354,12 @@ class EmployeeController extends Controller
                 'contract_start_date' => $request->contract_start_date,
                 'contract_end_date' => $request->contract_end_date,
             ]
+        );
+
+        // Update Statutory Details
+        $user->statutoryDetails()->updateOrCreate(
+            ['user_id' => $user->id],
+            $request->only($statutoryFields)
         );
 
         return redirect()->route('employees.index')->with('success', 'Employee updated successfully.');

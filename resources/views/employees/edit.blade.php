@@ -41,6 +41,30 @@
                     </div>
                     <span class="text-xs font-bold uppercase tracking-widest">Identity Details</span>
                 </button>
+
+                <button @click="activeTab = 'separation'"
+                    :class="activeTab === 'separation' ? 'bg-[#004499] text-white shadow-lg shadow-blue-900/20' : 'bg-white text-gray-500 hover:bg-gray-50 border border-gray-100' "
+                    class="w-full h-14 flex items-center px-4 rounded-lg transition-all duration-300 group">
+                    <div class="w-8 h-8 rounded-lg flex items-center justify-center mr-3 transition-colors"
+                        :class="activeTab === 'separation' ? 'bg-white/20' : 'bg-gray-50 group-hover:bg-blue-50 text-blue-500'">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <span class="text-xs font-bold uppercase tracking-widest">Separation Details</span>
+                </button>
+
+                <button @click="activeTab = 'statutory'"
+                    :class="activeTab === 'statutory' ? 'bg-[#004499] text-white shadow-lg shadow-blue-900/20' : 'bg-white text-gray-500 hover:bg-gray-50 border border-gray-100' "
+                    class="w-full h-14 flex items-center px-4 rounded-lg transition-all duration-300 group">
+                    <div class="w-8 h-8 rounded-lg flex items-center justify-center mr-3 transition-colors"
+                        :class="activeTab === 'statutory' ? 'bg-white/20' : 'bg-gray-50 group-hover:bg-blue-50 text-blue-500'">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <span class="text-xs font-bold uppercase tracking-widest">Statutory Details</span>
+                </button>
                 
                 <div class="pt-6 px-2">
                     <p class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-4 ml-1">Lifecycle Management</p>
@@ -68,7 +92,7 @@
                     <div class="px-8 py-4 border-b border-gray-50 bg-[#004499] flex items-center justify-between">
                         <div class="flex items-center gap-3">
                             <h3 class="text-xs font-black text-white uppercase tracking-widest" 
-                                x-text="activeTab === 'official' ? 'Edit Official Details' : (activeTab === 'bank' ? 'Edit Bank Details' : 'Edit Identity Verification')">
+                                x-text="activeTab === 'official' ? 'Edit Official Details' : (activeTab === 'bank' ? 'Edit Bank Details' : (activeTab === 'identity' ? 'Edit Identity Verification' : (activeTab === 'separation' ? 'Edit Separation details' : 'Edit Statutory Details')))">
                             </h3>
                         </div>
                         <div class="flex items-center gap-6">
@@ -695,8 +719,54 @@
                         </div>
                     </div>
 
+                    <!-- Statutory Details Tab Content -->
+                    <div x-show="activeTab === 'statutory'" class="p-8 space-y-8 animate-fadeIn">
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-2 pb-2 border-b border-gray-50">
+                                <div class="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
+                                <h4 class="text-[11px] font-black text-gray-800 uppercase tracking-widest">Statutory Details</h4>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">UAN No.</label>
+                                    <input type="text" name="uan_no" value="{{ old('uan_no', $employee->statutoryDetails->uan_no ?? '') }}" placeholder="UAN No."
+                                        class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">PF No</label>
+                                    <input type="text" name="pf_no" value="{{ old('pf_no', $employee->statutoryDetails->pf_no ?? '') }}" placeholder="PF No"
+                                        class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">ESI No</label>
+                                    <input type="text" name="esi_no" value="{{ old('esi_no', $employee->statutoryDetails->esi_no ?? '') }}" placeholder="ESI No"
+                                        class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="space-y-1">
+                                    <label class="block text-[11px] font-bold text-gray-600 uppercase tracking-tight">LWF No</label>
+                                    <input type="text" name="lwf_no" value="{{ old('lwf_no', $employee->statutoryDetails->lwf_no ?? '') }}" placeholder="LWF No"
+                                        class="w-full px-3 py-2 bg-[#F6F8FA] border border-gray-200 rounded text-[12px] font-bold outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-10 flex justify-end gap-3">
+                            <button type="button" @click="activeTab = 'separation'" 
+                                class="px-8 py-3 bg-gray-100 text-gray-500 rounded font-bold text-[12px] uppercase tracking-widest hover:bg-gray-200 transition-all">
+                                Previous
+                            </button>
+                            <button type="submit" class="px-8 py-3 bg-[#004499] text-white rounded font-bold text-[12px] uppercase tracking-widest hover:bg-blue-900 transition-all shadow-md">
+                                Update Employee Profile
+                            </button>
+                        </div>
+                    </div>
+
                     <!-- Other Tabs... -->
-                    <div x-show="!['official', 'bank', 'identity', 'separation'].includes(activeTab)" class="p-8 text-center text-gray-400 font-bold uppercase tracking-widest animate-fadeIn">
+                    <div x-show="!['official', 'bank', 'identity', 'separation', 'statutory'].includes(activeTab)" class="p-8 text-center text-gray-400 font-bold uppercase tracking-widest animate-fadeIn">
                         Work in Progress for <span x-text="activeTab"></span>
                     </div>
                 </form>
